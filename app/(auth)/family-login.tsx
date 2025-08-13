@@ -16,7 +16,7 @@ export default function FamilyLoginScreen() {
     
     console.log("Simulating successful family login...");
     // Use replace to ensure the user can't navigate back to the auth flow
-    router.replace('/'); 
+    router.replace("/family-dashboard"); 
   };
 
   return (

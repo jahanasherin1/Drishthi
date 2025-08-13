@@ -1,45 +1,57 @@
-// File: /app/_layout.tsx
-
-import { Drawer } from 'expo-router/drawer';
+import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
 import React from 'react';
 
-export default function RootLayout() {
+// This is the main tab layout for the police section of the app.
+export default function PoliceTabLayout() {
   return (
-    <Drawer
+    <Tabs
       screenOptions={{
         headerStyle: { backgroundColor: '#FFF8F8' },
         headerTintColor: '#2B0000',
         headerTitleStyle: { fontWeight: 'bold' },
-        drawerActiveTintColor: '#850a0a',
-        drawerInactiveTintColor: '#333',
-        drawerStyle: { backgroundColor: '#FFF8F8' },
+        tabBarActiveTintColor: '#3A0000',
+        tabBarInactiveTintColor: '#A47171',
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          borderTopColor: '#F0E0E0',
+        },
       }}
     >
-      <Drawer.Screen
-        name="index"
+      <Tabs.Screen
+        name="police-dashboard"
         options={{
-          drawerLabel: 'Home',
-          title: 'Drishti',
+          title: 'Police Dashboard',
+          tabBarLabel: 'Dashboard',
+          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" color={color} size={size} />,
         }}
       />
-      <Drawer.Screen
-        name="aboutUs"
+      <Tabs.Screen
+        name="alerts"
         options={{
-          drawerLabel: 'About Us',
-          title: 'About Drishti',
+          title: 'Alerts',
+          tabBarIcon: ({ color, size }) => <Ionicons name="notifications-outline" color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="face-search"
+        options={{
+          title: 'Face Search',
+          tabBarIcon: ({ color, size }) => <Ionicons name="scan-circle-outline" color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="user-profile"
+        options={{
+          title: 'User Profile',
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" color={color} size={size} />,
         }}
       />
       
-      {/* 
-        FIX: Remove headerShown: false. 
-        This allows the Drawer navigator to control the header for this group,
-        which will provide a consistent back button. 
-      */}
-      <Drawer.Screen name="(auth)" options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="(police)" options={{ drawerItemStyle: { display: 'none' }, headerShown: false }} />
-      
-      <Drawer.Screen name="ngo-dashboard" options={{ drawerItemStyle: { display: 'none' }, title: 'NGO Dashboard' }} />
-      <Drawer.Screen name="+not-found" options={{ drawerItemStyle: { display: 'none' } }} />
-    </Drawer>
+      {/* These screens are part of the police stack but are not shown in the tab bar */}
+      <Tabs.Screen name="reports" options={{ href: null, title: 'Reports' }} />
+      <Tabs.Screen name="statistics" options={{ href: null, title: 'Statistics' }} />
+    </Tabs>
   );
 }
