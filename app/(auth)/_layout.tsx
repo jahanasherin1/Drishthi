@@ -1,19 +1,17 @@
+// File: /app/(auth)/_layout.tsx
+
 import { Stack } from 'expo-router';
 import React from 'react';
 
-// This is the layout for all authentication-related screens.
-// It uses a Stack navigator, which automatically provides a header with a back button.
-// When a user navigates from the home screen to a login screen, this layout
-// ensures the back button will correctly navigate them back to the home screen.
 export default function AuthLayout() {
   return (
     <Stack
+      // FIX: Hide this Stack's own header, as the parent Drawer will now provide it.
       screenOptions={{
-        headerStyle: { backgroundColor: '#FFF8F8' },
-        headerTintColor: '#2B0000', // This styles the back arrow and title
-        headerTitleStyle: { fontWeight: 'bold' }
+        headerShown: false,
       }}
     >
+      {/* The titles defined here will now be used by the parent Drawer's header */}
       <Stack.Screen name="family-login" options={{ title: 'Family Login' }} />
       <Stack.Screen name="family-signup" options={{ title: 'Family Signup' }} />
       <Stack.Screen name="ngo-login" options={{ title: 'NGO Login' }} />

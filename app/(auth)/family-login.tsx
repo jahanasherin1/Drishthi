@@ -1,48 +1,22 @@
 import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import CustomButton from '../../components/CustomButton';
-import { BACKEND_API_URL } from '../../config/api';
 
 export default function FamilyLoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
+    // No backend call, just validate that inputs are not empty for demo purposes.
     if (!email || !password) {
-      return Alert.alert('Error', 'Please enter both email and password.');
+      return Alert.alert('Demo', 'Please enter any email and password to proceed.');
     }
-    setLoading(true);
-
-    try {
-      const response = await fetch(`${BACKEND_API_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Verify the user has the 'Family' role
-        if (data.user.role?.role_name !== 'Family') {
-          Alert.alert('Login Failed', 'This login is for family members only. Please use the correct login page.');
-        } else {
-          Alert.alert('Success', 'Logged in successfully!');
-          // Use replace to ensure the user can't navigate back to the auth flow
-          router.replace('/'); 
-        }
-      } else {
-        Alert.alert('Login Failed', data.msg || 'Invalid credentials.');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      Alert.alert('Connection Error', 'Could not connect to the server.');
-    } finally {
-      setLoading(false);
-    }
+    
+    console.log("Simulating successful family login...");
+    // Use replace to ensure the user can't navigate back to the auth flow
+    router.replace('/'); 
   };
 
   return (
@@ -66,13 +40,8 @@ export default function FamilyLoginScreen() {
         secureTextEntry 
       />
       
-      {loading ? (
-        <ActivityIndicator size="large" color="#850a0a" style={{ marginTop: 20 }} />
-      ) : (
-        <CustomButton title="Login" onPress={handleLogin} />
-      )}
+      <CustomButton title="Login" onPress={handleLogin} />
       
-      {/* UPDATED: Added 'replace' to prevent stacking auth screens */}
       <Link href="./family-signup" asChild replace>
         <Text style={styles.loginLink}>Don't have an account? Sign Up</Text>
       </Link>
