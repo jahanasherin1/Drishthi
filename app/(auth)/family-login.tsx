@@ -15,13 +15,17 @@ export default function FamilyLoginScreen() {
     }
     
     console.log("Simulating successful family login...");
-    // Use replace to ensure the user can't navigate back to the auth flow
-    router.replace("/family-dashboard"); 
+    // Use replace to ensure the user can't navigate back to the auth flow.
+    // Pass a hardcoded name for the demo.
+    router.replace({
+      pathname: '/(family)/family-dashboard',
+      params: { familyName: 'Demo User' },
+    });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Family Member Login</Text>
+      <Text style={styles.title}> Family Login</Text>
       <TextInput 
         style={styles.input} 
         placeholder="Email" 
@@ -54,7 +58,7 @@ export default function FamilyLoginScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fcf7f7', padding: 20, justifyContent: 'center' },
-  title: { fontSize: 22, fontWeight: 'bold', color: '#850a0a', marginBottom: 24, textAlign: 'center' },
+  title: { fontSize: 22, fontWeight: 'bold', textAlign: 'center', marginBottom: 100, color: '#2B0000' },
   input: { backgroundColor: 'white', borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#E4C4C4', marginBottom: 14 },
   loginLink: { color: '#850a0a', textAlign: 'center', marginTop: 18, fontSize: 14, padding: 10 }
 });

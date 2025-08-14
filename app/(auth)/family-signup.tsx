@@ -47,7 +47,7 @@ export default function FamilySignupScreen() {
 
   return (
     <View style={styles.container}>
-      {/* The <Text> title is no longer needed as it's handled by the layout */}
+      <Text style={styles.title}>Family Sign Up</Text>
       <TextInput style={styles.input} placeholder="Full Name" placeholderTextColor="#b94e4e" value={name} onChangeText={setName} />
       <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#b94e4e" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
       <TextInput style={styles.input} placeholder="Phone Number" placeholderTextColor="#b94e4e" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
@@ -70,7 +70,13 @@ export default function FamilySignupScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fcf7f7', padding: 20, justifyContent: 'center' },
   // The title style can be removed as the header handles it now.
-  // title: { fontSize: 22, fontWeight: 'bold', color: '#850a0a', marginBottom: 24, textAlign: 'center' },
+  title: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    textAlign: 'center', 
+    marginBottom: 100, // Matched large margin
+    color: '#2B0000' 
+  },
   input: { backgroundColor: 'white', borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#E4C4C4', marginBottom: 14 },
   loginLink: { color: '#850a0a', textAlign: 'center', marginTop: 18, fontSize: 14, padding: 10 }
 });

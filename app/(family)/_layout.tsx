@@ -1,14 +1,14 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-// UPDATED: Import the new reusable component from your components folder
 import TabBarIcon from '../../components/TabBarIcon';
+import CustomHeader from '../../components/CustomHeader'; // Import the new header
 
-// This is the main tab layout for the family section of the app.
 export default function FamilyTabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false, 
+        // Use the custom header for ALL tabs in this layout
+        header: (props) => <CustomHeader title={props.options.title!} showLogout />,
         tabBarActiveTintColor: '#850a0a',
         tabBarInactiveTintColor: '#A47171',
         tabBarStyle: {
@@ -26,8 +26,7 @@ export default function FamilyTabLayout() {
       <Tabs.Screen
         name="family-dashboard"
         options={{
-          title: 'Home',
-          // UPDATED: Use the new TabBarIcon component
+          title: 'Dashboard',
           tabBarIcon: ({ color }) => <TabBarIcon name="home-outline" color={color} />,
         }}
       />
@@ -35,7 +34,6 @@ export default function FamilyTabLayout() {
         name="status"
         options={{
           title: 'Status',
-          // UPDATED: Use the new TabBarIcon component
           tabBarIcon: ({ color }) => <TabBarIcon name="list-outline" color={color} />,
         }}
       />
@@ -43,7 +41,6 @@ export default function FamilyTabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          // UPDATED: Use the new TabBarIcon component
           tabBarIcon: ({ color }) => <TabBarIcon name="person-outline" color={color} />,
         }}
       />

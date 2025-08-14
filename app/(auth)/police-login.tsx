@@ -14,28 +14,68 @@ export default function PoliceLoginScreen() {
     }
 
     console.log("Simulating successful police login...");
-    // Use 'replace' to prevent going back to the login screen
-    // Pass a dummy name for the dashboard.
     router.replace({ pathname: '/(police)/police-dashboard', params: { officerName: 'Demo Officer' } });
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Police Officer Login</Text>
-      <TextInput style={styles.input} placeholder="Email or Police ID" placeholderTextColor="#b94e4e" value={email} onChangeText={setEmail} autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#b94e4e" secureTextEntry value={password} onChangeText={setPassword} />
-      <Link href="./forgot-password" style={styles.linkText} replace>
-        Forgot Password?
-      </Link>
+      
+      <TextInput 
+        style={styles.input} 
+        placeholder="Email or Police ID" 
+        placeholderTextColor="#b94e4e" 
+        value={email} 
+        onChangeText={setEmail} 
+        autoCapitalize="none" 
+      />
+      <TextInput 
+        style={styles.input} 
+        placeholder="Password" 
+        placeholderTextColor="#b94e4e" 
+        value={password} 
+        onChangeText={setPassword} 
+        secureTextEntry 
+      />
       
       <CustomButton title="Login" onPress={handleLogin} />
+      
+      {/* The "Forgot Password" link is now at the bottom, like in the family login screen */}
+      <Link href="./forgot-password" asChild replace>
+        <Text style={styles.linkText}>Forgot Password?</Text>
+      </Link>
     </View>
   );
 }
 
+// These styles are now based on the FamilyLoginScreen for consistency
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFF8F8', padding: 20, justifyContent: 'center' },
-  title: { fontSize: 22, fontWeight: 'bold', textAlign: 'center', marginBottom: 25, color: '#2B0000' },
-  input: { backgroundColor: 'white', borderWidth: 1, borderColor: '#E4C4C4', borderRadius: 8, padding: 12, fontSize: 14, color: '#2B0000', marginBottom: 15 },
-  linkText: { color: '#7F0E0E', textAlign: 'center', marginVertical: 15, fontSize: 14 },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#fcf7f7', // Matched background color
+    padding: 20, 
+    justifyContent: 'center' 
+  },
+  title: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    textAlign: 'center', 
+    marginBottom: 100, // Matched large margin
+    color: '#2B0000' 
+  },
+  input: { 
+    backgroundColor: 'white', 
+    borderRadius: 8, 
+    padding: 12, 
+    borderWidth: 1, 
+    borderColor: '#E4C4C4', 
+    marginBottom: 14 
+  },
+  linkText: { // Renamed from loginLink but uses the same styling
+    color: '#850a0a', 
+    textAlign: 'center', 
+    marginTop: 18, 
+    fontSize: 14, 
+    padding: 10 
+  }
 });

@@ -1,15 +1,14 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import CustomHeader from '../../components/CustomHeader'; // IMPORTED
+import TabBarIcon from '../../components/TabBarIcon'; // IMPORTED for consistency
 
-// This is the main tab layout for the police section of the app.
 export default function PoliceTabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerStyle: { backgroundColor: '#FFF8F8' },
-        headerTintColor: '#2B0000',
-        headerTitleStyle: { fontWeight: 'bold' },
+        // UPDATED: Use the custom header for all screens
+        header: (props) => <CustomHeader title={props.options.title!} showLogout />,
         tabBarActiveTintColor: '#3A0000',
         tabBarInactiveTintColor: '#A47171',
         tabBarStyle: {
@@ -23,21 +22,21 @@ export default function PoliceTabLayout() {
         options={{
           title: 'Police Dashboard',
           tabBarLabel: 'Dashboard',
-          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" color={color} size={size} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home-outline" color={color} />,
         }}
       />
       <Tabs.Screen
         name="alerts"
         options={{
           title: 'Alerts',
-          tabBarIcon: ({ color, size }) => <Ionicons name="notifications-outline" color={color} size={size} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="notifications-outline" color={color} />,
         }}
       />
       <Tabs.Screen
         name="face-search"
         options={{
           title: 'Face Search',
-          tabBarIcon: ({ color, size }) => <Ionicons name="scan-circle-outline" color={color} size={size} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="scan-circle-outline" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -45,7 +44,7 @@ export default function PoliceTabLayout() {
         options={{
           title: 'User Profile',
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" color={color} size={size} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="person-outline" color={color} />,
         }}
       />
       
