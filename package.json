@@ -8,7 +8,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "backend": "nodemon backend/server.js",
+    "db:seed": "node backend/seed.js"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -35,6 +37,7 @@
     "expo-system-ui": "~5.0.10",
     "expo-web-browser": "~14.2.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",

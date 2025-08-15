@@ -1,10 +1,9 @@
-// /backend-service/routes/auth.js
+// /backend/routes/auth.js
 
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-
-// Import the User and Role models
+const jwt = require('jsonwebtoken'); // For generating auth tokens
 const { User, Role } = require('../models');
 
 // @route   POST api/auth/signup
@@ -27,6 +26,7 @@ router.post('/signup', async (req, res) => {
     const familyRole = await Role.findOne({ role_name: 'Family' });
     if (!familyRole) {
         // This is a server configuration error
+        console.error("CRITICAL: 'Family' role not found in the database. Please run the seeding script.");
         return res.status(500).json({ msg: 'Default user role not found. Please contact support.' });
     }
 
@@ -37,6 +37,7 @@ router.post('/signup', async (req, res) => {
       role: familyRole._id, // Assign the 'Family' role's ID
     });
 
+    // Hash the password before saving
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
@@ -50,7 +51,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // @route   POST api/auth/login
-// @desc    Authenticate user & get user info
+// @desc    Authenticate user & get token/user info
 // @access  Public
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -72,16 +73,35 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
         
-        // Return user data (without the password)
-        res.json({
-            msg: 'Login successful',
+        // Create JWT Payload
+        const payload = {
             user: {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role // Contains role_id and role_name
+                id: user.id,
+                role: user.role.role_name
+            },
+        };
+
+        // Sign the token
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '5h' }, // Token expires in 5 hours
+            (err, token) => {
+                if (err) throw err;
+                
+                // Return the token and user data (excluding password)
+                res.json({
+                    token, // The JWT for the client to store
+                    msg: 'Login successful',
+                    user: {
+                        _id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role // Contains role_id and role_name
+                    }
+                });
             }
-        });
+        );
 
     } catch (err) {
         console.error(err.message);
